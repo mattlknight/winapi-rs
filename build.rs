@@ -66,6 +66,7 @@ const DATA: &'static [(&'static str, &'static [&'static str], &'static [&'static
     ("tcpestats", &[], &[]),
     ("tcpmib", &[], &[]),
     ("udpmib", &[], &[]),
+    ("tvout", &["guiddef", "minwindef"], &[]),
     ("usb", &["minwindef", "usbspec", "winnt"], &[]),
     ("usbiodef", &["guiddef", "minwindef", "winioctl", "winnt"], &[]),
     ("usbspec", &["basetsd", "guiddef", "minwindef", "winnt"], &[]),
