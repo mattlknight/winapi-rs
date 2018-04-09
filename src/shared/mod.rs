@@ -61,6 +61,7 @@ pub mod guiddef;
 #[cfg(feature = "tcpestats")] pub mod tcpestats;
 #[cfg(feature = "tcpmib")] pub mod tcpmib;
 #[cfg(feature = "udpmib")] pub mod udpmib;
+#[cfg(feature = "transportsettingcommon")] pub mod transportsettingcommon;
 #[cfg(feature = "tvout")] pub mod tvout;
 #[cfg(feature = "usb")] pub mod usb;
 #[cfg(feature = "usbiodef")] pub mod usbiodef;
