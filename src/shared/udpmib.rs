@@ -10,10 +10,10 @@
 // use shared::guiddef::GUID;
 // use shared::ws2def::*;
 // use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
-use ctypes::*;
-use shared::basetsd::*;
+use ctypes::{c_int};
+use shared::basetsd::{DWORD64};
 use shared::in6addr::{IN6_ADDR};
-use shared::minwindef::*;
+use shared::minwindef::{DWORD};
 use shared::ntdef::{UCHAR, ULONGLONG, LARGE_INTEGER};
 
 pub const TCPIP_OWNING_MODULE_SIZE: usize = 16;
