@@ -13,20 +13,18 @@
 // #include <tcpmib.h>
 // #include <udpmib.h>
 use ctypes::*;
-use shared::minwindef::*;
-use shared::basetsd::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
 
-use shared::mprapidef::*;
+use shared::basetsd::*;
+use shared::guiddef::GUID;
 use shared::ipifcons::*;
 use shared::ipmib::*;
+use shared::minwindef::*;
+use shared::mprapidef::*;
+use shared::ntdef::*;
 use shared::tcpmib::*;
 use shared::udpmib::*;
+use shared::ws2def::*;
+use um::minwinbase::{LPOVERLAPPED, OVERLAPPED};
 
 pub const MAX_SCOPE_NAME_LEN: usize = 255;
 pub const MAX_MIB_OFFSET: usize = 8;
@@ -157,4 +155,3 @@ STRUCT!{struct MIB_OPAQUE_INFO {
     Value: MIB_OPAQUE_INFO_Value,
 }}
 pub type PMIB_OPAQUE_INFO = *mut MIB_OPAQUE_INFO;
-

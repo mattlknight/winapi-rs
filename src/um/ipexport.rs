@@ -10,17 +10,14 @@
 // #include <inaddr.h>
 
 use ctypes::*;
-use shared::minwindef::*;
 use shared::basetsd::*;
-use shared::inaddr::*;
+use shared::guiddef::GUID;
 use shared::in6addr::*;
+use shared::inaddr::*;
+use shared::minwindef::*;
 use shared::ntdef::*;
 use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-
+use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 
 pub const MAX_ADAPTER_NAME: usize = 128;
 pub const MAX_OPT_SIZE: usize = 40;

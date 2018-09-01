@@ -9,18 +9,16 @@
 // #include <ifmib.h>
 // #include <nldef.h>
 use ctypes::*;
-use shared::minwindef::*;
 use shared::basetsd::*;
+use shared::guiddef::GUID;
+use shared::ifdef::*;
+use shared::ifmib::*;
+use shared::ipifcons::*;
+use shared::minwindef::*;
+use shared::nldef::*;
 use shared::ntdef::*;
 use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-use shared::ifmib::*;
-use shared::ifdef::*;
-use shared::ipifcons::*;
-use shared::nldef::*;
+use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 
 const ANY_SIZE: usize = 1;
 
@@ -437,4 +435,3 @@ STRUCT!{struct MIB_IPMCAST_IF_TABLE {
     table: [MIB_IPMCAST_IF_ENTRY; ANY_SIZE],
 }}
 pub type PMIB_IPMCAST_IF_TABLE = *mut MIB_IPMCAST_IF_TABLE;
-

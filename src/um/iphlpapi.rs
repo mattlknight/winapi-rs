@@ -11,20 +11,19 @@
 // #include <tcpestats.h>
 
 use ctypes::*;
-use shared::minwindef::*;
 use shared::basetsd::*;
-use shared::inaddr::*;
-use shared::in6addr::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
 use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-use shared::iprtrmib::*;
+use shared::in6addr::*;
+use shared::inaddr::*;
 use shared::ipexport::*;
+use shared::iprtrmib::*;
 use shared::iptypes::*;
+use shared::minwindef::*;
+use shared::ntdef::*;
 use shared::tcpestats::*;
+use shared::ws2def::*;
+use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
+
 ENUM!{enum NET_ADDRESS_FORMAT {
     NET_ADDRESS_FORMAT_UNSPECIFIED = 0,
     NET_ADDRESS_DNS_NAME,

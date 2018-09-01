@@ -7,15 +7,12 @@
 
 // #include <winapifamily.h>
 use ctypes::*;
-use shared::minwindef::*;
 use shared::basetsd::*;
+use shared::guiddef::GUID;
+use shared::minwindef::*;
 use shared::ntdef::*;
 use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-
+use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 
 ENUM!{enum TCP_ESTATS_TYPE {
     TcpConnectionEstatsSynOpts,
@@ -240,4 +237,3 @@ STRUCT!{struct TCP_ESTATS_FINE_RTT_ROD_v0 {
     SumRtt: ULONG,
 }}
 pub type PTCP_ESTATS_FINE_RTT_ROD_v0 = *mut TCP_ESTATS_FINE_RTT_ROD_v0;
-

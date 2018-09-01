@@ -11,19 +11,16 @@
 // #include <nldef.h>
 
 use ctypes::*;
-use shared::minwindef::*;
 use shared::basetsd::*;
-use shared::inaddr::*;
+use shared::guiddef::GUID;
+use shared::ifdef::*;
 use shared::in6addr::*;
+use shared::inaddr::*;
+use shared::minwindef::*;
+use shared::nldef::*;
 use shared::ntdef::*;
 use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-use shared::ifdef::*;
-use shared::nldef::*;
-
+use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 
 pub const MAX_ADAPTER_DESCRIPTION_LENGTH: usize = 128;
 pub const MAX_ADAPTER_NAME_LENGTH: usize        = 256;
@@ -420,4 +417,3 @@ pub type PIP_INTERFACE_NAME_INFO_W2KSP1 = *mut IP_INTERFACE_NAME_INFO_W2KSP1;
 
 pub type IP_INTERFACE_NAME_INFO = IP_INTERFACE_NAME_INFO_W2KSP1;
 pub type PIP_INTERFACE_NAME_INFO = *mut IP_INTERFACE_NAME_INFO;
-

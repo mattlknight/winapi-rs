@@ -8,14 +8,12 @@
 // #include <winapifamily.h>
 
 use ctypes::*;
-use shared::minwindef::*;
 use shared::basetsd::*;
+use shared::guiddef::GUID;
+use shared::minwindef::*;
 use shared::ntdef::*;
 use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
+use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 
 pub const TCPIP_OWNING_MODULE_SIZE: usize = 16;
 
@@ -141,4 +139,3 @@ STRUCT!{struct MIB_UDPSTATS2 {
     dwNumAddrs: DWORD,
 }}
 pub type PMIB_UDPSTATS2 = *mut MIB_UDPSTATS2;
-
