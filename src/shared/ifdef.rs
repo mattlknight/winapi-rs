@@ -73,9 +73,11 @@ STRUCT!{struct NET_IF_ALIAS_LH {
 pub type PNET_IF_ALIAS_LH = *mut NET_IF_ALIAS_LH;
 
 UNION!{union NET_LUID_LH {
-    Value: ULONG64,
-    Info: ULONG64,
+    [u64; 1],
+    Value Value_mut: ULONG64,
+    Info Info_mut: ULONG64,
 }}
+
 BITFIELD!{NET_LUID_LH Info: ULONG64 [
     Reserved set_Reserved[0..24],
     NetLuidIndex set_NetLuidIndex[24..48],

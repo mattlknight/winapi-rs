@@ -47,8 +47,9 @@ pub type PMIB_UDPTABLE_OWNER_PID = *mut MIB_UDPTABLE_OWNER_PID;
 
 
 UNION!{union MIB_UDPROW_OWNER_MODULE_u {
-    s: c_int,
-    dwFlags: c_int,
+    [i32; 1],
+    s s_mut: c_int,
+    dwFlags dwFlags_mut: c_int,
 }}
 BITFIELD!{MIB_UDPROW_OWNER_MODULE_u s: c_int [
     SpecificPortBind set_SpecificPortBind[0..1],
@@ -98,8 +99,9 @@ STRUCT!{struct MIB_UDP6TABLE_OWNER_PID {
 pub type PMIB_UDP6TABLE_OWNER_PID = *mut MIB_UDP6TABLE_OWNER_PID;
 
 UNION!{union MIB_UDP6ROW_OWNER_MODULE_u {
-    s: c_int,
-    dwFlags: c_int,
+    [i32; 1],
+    s s_mut: c_int,
+    dwFlags dwFlags_mut: c_int,
 }}
 BITFIELD!{MIB_UDP6ROW_OWNER_MODULE_u s: c_int [
     SpecificPortBind set_SpecificPortBind[0..1],

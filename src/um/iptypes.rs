@@ -80,7 +80,7 @@ pub type PIP_ADAPTER_INFO = *mut IP_ADAPTER_INFO;
 
 #[cfg(feature = "winsock2")]
 mod winsocks2 {
-    use supper::*;
+    use super::*;
 
     pub type IP_PREFIX_ORIGIN = NL_PREFIX_ORIGIN;
     pub type IP_SUFFIX_ORIGIN = NL_SUFFIX_ORIGIN;
@@ -91,8 +91,9 @@ mod winsocks2 {
         Flags: DWORD,
     }}
     UNION!{union IP_ADAPTER_UNICAST_ADDRESS_LH_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_UNICAST_ADDRESS_LH_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_UNICAST_ADDRESS_LH_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_UNICAST_ADDRESS_LH {
         u: IP_ADAPTER_UNICAST_ADDRESS_LH_u,
@@ -113,8 +114,9 @@ mod winsocks2 {
         Flags: DWORD,
     }}
     UNION!{union IP_ADAPTER_UNICAST_ADDRESS_XP_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_UNICAST_ADDRESS_XP_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_UNICAST_ADDRESS_XP_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_UNICAST_ADDRESS_XP {
         u: IP_ADAPTER_UNICAST_ADDRESS_XP_u,
@@ -141,8 +143,9 @@ mod winsocks2 {
         Flags: DWORD,
     }}
     UNION!{union IP_ADAPTER_ANYCAST_ADDRESS_XP_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_ANYCAST_ADDRESS_XP_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_ANYCAST_ADDRESS_XP_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_ANYCAST_ADDRESS_XP {
         u: IP_ADAPTER_ANYCAST_ADDRESS_XP_u,
@@ -159,8 +162,9 @@ mod winsocks2 {
         Flags: DWORD,
     }}
     UNION!{union IP_ADAPTER_MULTICAST_ADDRESS_XP_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_MULTICAST_ADDRESS_XP_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_MULTICAST_ADDRESS_XP_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_MULTICAST_ADDRESS_XP {
         u: IP_ADAPTER_MULTICAST_ADDRESS_XP_u,
@@ -177,8 +181,9 @@ mod winsocks2 {
         Reserved: DWORD,
     }}
     UNION!{union IP_ADAPTER_DNS_SERVER_ADDRESS_XP_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_DNS_SERVER_ADDRESS_XP_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_DNS_SERVER_ADDRESS_XP_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_DNS_SERVER_ADDRESS_XP {
         u: IP_ADAPTER_DNS_SERVER_ADDRESS_XP_u,
@@ -195,8 +200,9 @@ mod winsocks2 {
         Reserved: DWORD,
     }}
     UNION!{union IP_ADAPTER_WINS_SERVER_ADDRESS_LH_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_WINS_SERVER_ADDRESS_LH_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_WINS_SERVER_ADDRESS_LH_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_WINS_SERVER_ADDRESS_LH {
         u: IP_ADAPTER_WINS_SERVER_ADDRESS_LH_u,
@@ -213,8 +219,9 @@ mod winsocks2 {
         Reserved: DWORD,
     }}
     UNION!{union IP_ADAPTER_GATEWAY_ADDRESS_LH_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_GATEWAY_ADDRESS_LH_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_GATEWAY_ADDRESS_LH_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_GATEWAY_ADDRESS_LH {
         u: IP_ADAPTER_GATEWAY_ADDRESS_LH_u,
@@ -231,8 +238,9 @@ mod winsocks2 {
         Flags: DWORD,
     }}
     UNION!{union IP_ADAPTER_PREFIX_XP_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_PREFIX_XP_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_PREFIX_XP_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_PREFIX_XP {
         u: IP_ADAPTER_PREFIX_XP_u,
@@ -268,12 +276,14 @@ mod winsocks2 {
         IfIndex: IF_INDEX,
     }}
     UNION!{union IP_ADAPTER_ADDRESSES_LH_u1 {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_ADDRESSES_LH_u1_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_ADDRESSES_LH_u1_s,
     }}
     UNION!{union IP_ADAPTER_ADDRESSES_LH_u2 {
-        Flags: ULONG,
-        s: ULONG,
+        [u64; 1],
+        Flags Flags_mut: ULONG,
+        s s_mut: ULONG,
     }}
     BITFIELD!{IP_ADAPTER_ADDRESSES_LH_u2 s: ULONG [
         DdnsEnabled set_DdnsEnabled[0..1],
@@ -332,8 +342,9 @@ mod winsocks2 {
         IfIndex: DWORD,
     }}
     UNION!{union IP_ADAPTER_ADDRESSES_XP_u {
-        Alignment: ULONGLONG,
-        s: IP_ADAPTER_ADDRESSES_XP_u_s,
+        [u64; 1],
+        Alignment Alignment_mut: ULONGLONG,
+        s s_mut: IP_ADAPTER_ADDRESSES_XP_u_s,
     }}
     STRUCT!{struct IP_ADAPTER_ADDRESSES_XP {
         u: IP_ADAPTER_ADDRESSES_XP_u,
@@ -376,7 +387,7 @@ mod winsocks2 {
 }
 
 #[cfg(feature = "winsock2")]
-pub use winsock2::*;
+pub use um::winsock2::*;
 
 STRUCT!{struct IP_PER_ADAPTER_INFO_W2KSP1 {
     AutoconfigEnabled: UINT,

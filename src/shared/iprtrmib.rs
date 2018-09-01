@@ -147,8 +147,9 @@ STRUCT!{struct MIB_ROUTESTATE {
 pub type PMIB_ROUTESTATE = *mut MIB_ROUTESTATE;
 
 UNION!{union MIB_OPAQUE_INFO_Value {
-    ullAlign: ULONGLONG,
-    rgbyData: [BYTE; 1],
+    [u64; 1],
+    ullAlign ullAlign_mut: ULONGLONG,
+    rgbyData rgbyData_mut: [BYTE; 1],
 }}
 STRUCT!{struct MIB_OPAQUE_INFO {
     dwId: DWORD,

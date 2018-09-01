@@ -34,7 +34,7 @@ pub mod guiddef;
 #[cfg(feature = "hidsdi")] pub mod hidsdi;
 #[cfg(feature = "hidusage")] pub mod hidusage;
 #[cfg(feature = "ifdef")] pub mod ifdef;
-#[cfg(feature = "ifmid")] pub mod ifmib;
+#[cfg(feature = "ifmib")] pub mod ifmib;
 #[cfg(feature = "in6addr")] pub mod in6addr;
 #[cfg(feature = "inaddr")] pub mod inaddr;
 #[cfg(feature = "intsafe")] pub mod intsafe;

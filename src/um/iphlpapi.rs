@@ -15,13 +15,13 @@ use shared::basetsd::*;
 use shared::guiddef::GUID;
 use shared::in6addr::*;
 use shared::inaddr::*;
-use shared::ipexport::*;
 use shared::iprtrmib::*;
-use shared::iptypes::*;
 use shared::minwindef::*;
 use shared::ntdef::*;
 use shared::tcpestats::*;
 use shared::ws2def::*;
+use um::ipexport::*;
+use um::iptypes::*;
 use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 
 ENUM!{enum NET_ADDRESS_FORMAT {
@@ -41,10 +41,11 @@ mod ws2def_and_ws2ipdef {
         Port: [WCHAR; 6],
     }}
     UNION!{union NET_ADDRESS {
-        NamedAddress: NET_NAMED_ADDRESS,
-        Ipv4Address: SOCKADDR_IN,
-        Ipv6Address: SOCKADDR_IN6,
-        IpAddress: SOCKADDR,
+        [u8; 256],
+        NamedAddress NamedAddress_mut: NET_NAMED_ADDRESS, // [u16; 6] + [u16; ]
+        Ipv4Address Ipv4Address_mut: SOCKADDR_IN, // [u8; 4]
+        Ipv6Address Ipv6Address_mut: SOCKADDR_IN6, // [u8; 16]
+        IpAddress IpAddress_mut: SOCKADDR, // [u8; 16]
     }}
     STRUCT!{struct NET_ADDRESS_INFO {
         Format: NET_ADDRESS_FORMAT,
@@ -53,7 +54,7 @@ mod ws2def_and_ws2ipdef {
     pub type PNET_ADDRESS_INFO = *mut NET_ADDRESS_INFO;
 }
 #[cfg(all(feature = "ws2def", feature = "ws2ipdef"))]
-pub use ws2def_and_ws2ipdef::*;
+pub use self::ws2def_and_ws2ipdef::*;
 
 
 extern "system" {
