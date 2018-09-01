@@ -7,14 +7,9 @@
 
 // #include <winapifamily.h>
 // #include <ipifcons.h>
-use ctypes::*;
 use shared::basetsd::*;
 use shared::guiddef::GUID;
-use shared::ipifcons::*;
-use shared::minwindef::*;
 use shared::ntdef::*;
-use shared::ws2def::*;
-use um::minwinbase::{LPOVERLAPPED, OVERLAPPED};
 
 pub type NET_IF_COMPARTMENT_ID = UINT32;
 pub type PNET_IF_COMPARTMENT_ID = *mut NET_IF_COMPARTMENT_ID;

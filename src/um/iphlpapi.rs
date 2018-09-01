@@ -10,18 +10,28 @@
 // #include <iptypes.h>
 // #include <tcpestats.h>
 
-use ctypes::*;
-use shared::basetsd::*;
-use shared::guiddef::GUID;
-use shared::in6addr::*;
-use shared::inaddr::*;
-use shared::iprtrmib::*;
-use shared::minwindef::*;
-use shared::ntdef::*;
-use shared::tcpestats::*;
-use shared::ws2def::*;
-use um::ipexport::*;
-use um::iptypes::*;
+// use ctypes::{};
+// use shared::guiddef::GUID;
+// use shared::in6addr::*;
+// use shared::inaddr::{};
+// use shared::tcpestats::*;
+use shared::basetsd::{PULONG64};
+use shared::ifmib::{PMIB_IFROW, PMIB_IFTABLE};
+use shared::ipmib::{PMIB_IPADDRTABLE, PMIB_IPFORWARDROW, PMIB_IPNETTABLE, PMIB_IPFORWARDTABLE,
+                    PMIB_IPSTATS, PMIB_ICMP, PMIB_ICMP_EX, PMIB_IPNETROW};
+use shared::iprtrmib::{TCP_TABLE_CLASS, UDP_TABLE_CLASS, TCPIP_OWNER_MODULE_INFO_CLASS};
+use shared::minwindef::{BOOL, BYTE, DWORD, LPDWORD, PDWORD, PULONG, UINT};
+use shared::ntdef::{HANDLE, LPWSTR, PHANDLE, PVOID, PWSTR, ULONG, USHORT, WCHAR};
+use shared::tcpmib::{PMIB_TCP6ROW_OWNER_MODULE, PMIB_TCP6TABLE, PMIB_TCP6TABLE2, PMIB_TCPTABLE,
+                     PMIB_TCPTABLE2, PMIB_TCPROW_OWNER_MODULE, PMIB_TCPSTATS, PMIB_TCPSTATS2,
+                     PMIB_TCPROW};
+use shared::udpmib::{PMIB_UDP6ROW_OWNER_MODULE, PMIB_UDPTABLE, PMIB_UDP6TABLE, PMIB_UDPSTATS,
+                     PMIB_UDPSTATS2, PMIB_UDPROW_OWNER_MODULE};
+use shared::ws2def::{SOCKADDR, SOCKADDR_IN};
+use shared::ws2ipdef::{SOCKADDR_IN6};
+use um::ipexport::{IPAddr, IP_STATUS, PIP_ADAPTER_INDEX_MAP, PIP_UNIDIRECTIONAL_ADAPTER_ADDRESS,
+                   PIP_INTERFACE_INFO, IPMask};
+use um::iptypes::{PIP_PER_ADAPTER_INFO, PIP_ADAPTER_INFO, PFIXED_INFO};
 use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 
 ENUM!{enum NET_ADDRESS_FORMAT {
@@ -35,6 +45,8 @@ ENUM!{enum NET_ADDRESS_FORMAT {
 #[cfg(all(feature = "ws2def", feature = "ws2ipdef"))]
 mod ws2def_and_ws2ipdef {
     use super::*;
+
+    pub const DNS_MAX_NAME_BUFFER_LENGTH: usize = 0x256;
 
     STRUCT!{struct NET_NAMED_ADDRESS {
         Address: [WCHAR; DNS_MAX_NAME_BUFFER_LENGTH],

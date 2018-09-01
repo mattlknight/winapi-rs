@@ -9,15 +9,10 @@
 // #include <in6addr.h>
 // #include <inaddr.h>
 
-use ctypes::*;
-use shared::basetsd::*;
-use shared::guiddef::GUID;
-use shared::in6addr::*;
-use shared::inaddr::*;
-use shared::minwindef::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
+use ctypes::{c_uint};
+use shared::basetsd::{ULONG64};
+use shared::in6addr::{in6_addr};
+use shared::ntdef::{UCHAR, USHORT, ULONG, WCHAR};
 
 pub const MAX_ADAPTER_NAME: usize = 128;
 pub const MAX_OPT_SIZE: usize = 40;
@@ -115,7 +110,7 @@ STRUCT!{struct IP_ADAPTER_INDEX_MAP {
 pub type PIP_ADAPTER_INDEX_MAP = *mut IP_ADAPTER_INDEX_MAP;
 
 STRUCT!{struct IP_INTERFACE_INFO {
-    NumAdapters: LOGNG,
+    NumAdapters: ULONG,
     Adapter: [IP_ADAPTER_INDEX_MAP; 1],
 }}
 pub type PIP_INTERFACE_INFO = *mut IP_INTERFACE_INFO;
