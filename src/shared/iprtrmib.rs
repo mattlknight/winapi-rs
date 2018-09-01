@@ -12,19 +12,9 @@
 // #include <ipmib.h>
 // #include <tcpmib.h>
 // #include <udpmib.h>
-use ctypes::*;
-
-use shared::basetsd::*;
-use shared::guiddef::GUID;
-use shared::ipifcons::*;
-use shared::ipmib::*;
-use shared::minwindef::*;
-use shared::mprapidef::*;
-use shared::ntdef::*;
-use shared::tcpmib::*;
-use shared::udpmib::*;
-use shared::ws2def::*;
-use um::minwinbase::{LPOVERLAPPED, OVERLAPPED};
+use shared::ipmib::{MIB_IPFORWARDROW};
+use shared::minwindef::{BOOL, BYTE, DWORD};
+use shared::ntdef::{PWCHAR, WCHAR, ULONGLONG};
 
 pub const MAX_SCOPE_NAME_LEN: usize = 255;
 pub const MAX_MIB_OFFSET: usize = 8;
@@ -60,7 +50,7 @@ pub type PUDP_TABLE_CLASS = *mut UDP_TABLE_CLASS;
 ENUM!{enum TCPIP_OWNER_MODULE_INFO_CLASS {
     TCPIP_OWNER_MODULE_INFO_BASIC,
 }}
-pub type PTCPIP_OWNER_MODULE_INFO_CLASS = *mut TCPIP_OWNER_MODULE_INFO_BASIC;
+pub type PTCPIP_OWNER_MODULE_INFO_CLASS = *mut TCPIP_OWNER_MODULE_INFO_CLASS;
 
 STRUCT!{struct TCPIP_OWNER_MODULE_BASIC_INFO {
     pModuleName: PWCHAR,

@@ -10,17 +10,15 @@
 // #include <ifdef.h>
 // #include <nldef.h>
 
-use ctypes::*;
-use shared::basetsd::*;
+use ctypes::{__int64};
+use shared::basetsd::{ULONG64, UINT8};
 use shared::guiddef::GUID;
-use shared::ifdef::*;
-use shared::in6addr::*;
-use shared::inaddr::*;
-use shared::minwindef::*;
-use shared::nldef::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
+use shared::ifdef::{IF_INDEX, IF_OPER_STATUS, IF_LUID, NET_IF_COMPARTMENT_ID, NET_IF_NETWORK_GUID, NET_IF_CONNECTION_TYPE, TUNNEL_TYPE};
+use shared::ipifcons::{IFTYPE};
+use shared::minwindef::{DWORD, UINT, BYTE, BOOL, UCHAR};
+use shared::nldef::{NL_PREFIX_ORIGIN, NL_SUFFIX_ORIGIN, NL_DAD_STATE};
+use shared::ntdef::{PCHAR, PWCHAR, WCHAR, ULONG, ULONGLONG};
+use shared::ws2def::{SOCKET_ADDRESS};
 
 pub const MAX_ADAPTER_DESCRIPTION_LENGTH: usize = 128;
 pub const MAX_ADAPTER_NAME_LENGTH: usize        = 256;
@@ -79,7 +77,7 @@ STRUCT!{struct IP_ADAPTER_INFO {
 pub type PIP_ADAPTER_INFO = *mut IP_ADAPTER_INFO;
 
 #[cfg(feature = "winsock2")]
-mod winsocks2 {
+mod winsock2 {
     use super::*;
 
     pub type IP_PREFIX_ORIGIN = NL_PREFIX_ORIGIN;
@@ -387,7 +385,7 @@ mod winsocks2 {
 }
 
 #[cfg(feature = "winsock2")]
-pub use um::winsock2::*;
+pub use self::winsock2::*;
 
 STRUCT!{struct IP_PER_ADAPTER_INFO_W2KSP1 {
     AutoconfigEnabled: UINT,

@@ -6,13 +6,8 @@
 // except according to those terms.
 
 // #include <winapifamily.h>
-use ctypes::*;
-use shared::basetsd::*;
-use shared::guiddef::GUID;
-use shared::minwindef::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
+use shared::basetsd::{SIZE_T, ULONG64};
+use shared::ntdef::{ULONG, BOOLEAN, UCHAR};
 
 ENUM!{enum TCP_ESTATS_TYPE {
     TcpConnectionEstatsSynOpts,

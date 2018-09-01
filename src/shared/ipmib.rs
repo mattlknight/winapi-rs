@@ -8,17 +8,12 @@
 // #include <winapifamily.h>
 // #include <ifmib.h>
 // #include <nldef.h>
-use ctypes::*;
-use shared::basetsd::*;
-use shared::guiddef::GUID;
-use shared::ifdef::*;
-use shared::ifmib::*;
-use shared::ipifcons::*;
-use shared::minwindef::*;
-use shared::nldef::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
+use ctypes::{c_ushort};
+use shared::ifdef::{IF_INDEX};
+use shared::ifmib::{MAXLEN_PHYSADDR};
+use shared::minwindef::{DWORD};
+use shared::nldef::{NL_ROUTE_PROTOCOL};
+use shared::ntdef::{UCHAR, ULONG, PVOID};
 
 const ANY_SIZE: usize = 1;
 

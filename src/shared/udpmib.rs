@@ -7,13 +7,14 @@
 
 // #include <winapifamily.h>
 
+// use shared::guiddef::GUID;
+// use shared::ws2def::*;
+// use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
 use ctypes::*;
 use shared::basetsd::*;
-use shared::guiddef::GUID;
+use shared::in6addr::{IN6_ADDR};
 use shared::minwindef::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
+use shared::ntdef::{UCHAR, ULONGLONG, LARGE_INTEGER};
 
 pub const TCPIP_OWNING_MODULE_SIZE: usize = 16;
 
@@ -60,7 +61,7 @@ STRUCT!{struct MIB_UDPROW_OWNER_MODULE {
     dwOwningPid: DWORD,
     liCreateTimestamp: LARGE_INTEGER,
     u: MIB_UDPROW_OWNER_MODULE_u,
-    OwningModuleInfo: [ULONGULONG; TCPIP_OWNING_MODULE_SIZE],
+    OwningModuleInfo: [ULONGLONG; TCPIP_OWNING_MODULE_SIZE],
 }}
 pub type PMIB_UDPROW_OWNER_MODULE = *mut MIB_UDPROW_OWNER_MODULE;
 
