@@ -36,8 +36,8 @@ pub const MIXED_NODETYPE: usize        = 4;
 pub const HYBRID_NODETYPE: usize       = 8;
 
 
-type __time64_t = LONGLONG;
-type time_t = __time64_t;
+pub type __time64_t = LONGLONG;
+pub type time_t = __time64_t;
 
 STRUCT!{struct IP_ADDRESS_STRING {
     String: [CHAR; 4*4],
