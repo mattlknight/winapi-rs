@@ -7,9 +7,9 @@
 
 // #include <winapifamily.h>
 // #include <ipifcons.h>
-use shared::basetsd::*;
+use shared::basetsd::{UINT16, UINT32, ULONG32, ULONG64};
 use shared::guiddef::GUID;
-use shared::ntdef::*;
+use shared::ntdef::{BOOLEAN, ULONG, USHORT};
 
 pub type NET_IF_COMPARTMENT_ID = UINT32;
 pub type PNET_IF_COMPARTMENT_ID = *mut NET_IF_COMPARTMENT_ID;
