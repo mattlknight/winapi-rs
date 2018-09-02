@@ -4,21 +4,21 @@
 // <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your option.
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
-
+//! Contains the public definitions and structures for the non-TCP/IP specific parts of MIB-II.
 // #include <winapifamily.h>
 // #include <ifdef.h>
-
 use shared::ifdef::IF_INDEX;
 use shared::ipifcons::{IFTYPE, INTERNAL_IF_OPER_STATUS};
 use shared::minwindef::DWORD;
 use shared::ntdef::{UCHAR, WCHAR};
-
+const ANY_SIZE: usize = 1;
+STRUCT!{struct MIB_IFNUMBER {
+    dwValue: DWORD,
+}}
+pub type PMIB_IFNUMBER = *mut MIB_IFNUMBER;
 pub const MAXLEN_PHYSADDR: usize = 8;
 pub const MAXLEN_IFDESCR: usize = 256;
 pub const MAX_INTERFACE_NAME_LEN: usize = 256;
-
-const ANY_SIZE: usize = 1;
-
 STRUCT!{struct MIB_IFROW {
     wszName: [WCHAR; MAX_INTERFACE_NAME_LEN],
     dwIndex: IF_INDEX,
@@ -46,9 +46,9 @@ STRUCT!{struct MIB_IFROW {
     bDescr: [UCHAR; MAXLEN_IFDESCR],
 }}
 pub type PMIB_IFROW = *mut MIB_IFROW;
-
 STRUCT!{struct MIB_IFTABLE {
     dwNumEntries: DWORD,
     table: [MIB_IFROW; ANY_SIZE],
 }}
 pub type PMIB_IFTABLE = *mut MIB_IFTABLE;
+// FIXME: How to define SIZEOF_IFTABLE(X)

@@ -4,7 +4,7 @@
 // <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your option.
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
-
+//! Constants needed for the Interface Object
 // #include <winapifamily.h>
 use shared::minwindef::ULONG;
 pub type IFTYPE = ULONG;
@@ -220,12 +220,12 @@ ENUM!{enum IF_ACCESS_TYPE {
     IF_ACCESS_POINTTOMULTIPOINT    = 4,
 }}
 ENUM!{enum INTERNAL_IF_OPER_STATUS {
-    IF_OPER_STATUS_NON_OPERATIONAL = 0x0,
-    IF_OPER_STATUS_UNREACHABLE     = 0x1,
-    IF_OPER_STATUS_DISCONNECTED    = 0x2,
-    IF_OPER_STATUS_CONNECTING      = 0x3,
-    IF_OPER_STATUS_CONNECTED       = 0x4,
-    IF_OPER_STATUS_OPERATIONAL     = 0x5,
+    IF_OPER_STATUS_NON_OPERATIONAL = 0,
+    IF_OPER_STATUS_UNREACHABLE     = 1,
+    IF_OPER_STATUS_DISCONNECTED    = 2,
+    IF_OPER_STATUS_CONNECTING      = 3,
+    IF_OPER_STATUS_CONNECTED       = 4,
+    IF_OPER_STATUS_OPERATIONAL     = 5,
 }}
 pub const MIB_IF_TYPE_OTHER: IFTYPE = 1;
 pub const MIB_IF_TYPE_ETHERNET: IFTYPE = 6;
