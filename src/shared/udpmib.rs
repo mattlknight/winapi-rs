@@ -46,15 +46,18 @@ STRUCT!{struct MIB_UDPTABLE_OWNER_PID {
 }}
 pub type PMIB_UDPTABLE_OWNER_PID = *mut MIB_UDPTABLE_OWNER_PID;
 
-
-UNION!{union MIB_UDPROW_OWNER_MODULE_u {
-    [i32; 1],
-    s s_mut: c_int,
-    dwFlags dwFlags_mut: c_int,
+STRUCT!{struct MIB_UDPROW_OWNER_MODULE_u_s {
+    bitfield: c_int,
 }}
-BITFIELD!{MIB_UDPROW_OWNER_MODULE_u s: c_int [
+BITFIELD!{MIB_UDPROW_OWNER_MODULE_u_s bitfield: c_int [
     SpecificPortBind set_SpecificPortBind[0..1],
 ]}
+UNION!{union MIB_UDPROW_OWNER_MODULE_u {
+    [i32; 1],
+    s s_mut: MIB_UDPROW_OWNER_MODULE_u_s,
+    dwFlags dwFlags_mut: c_int,
+}}
+
 STRUCT!{struct MIB_UDPROW_OWNER_MODULE {
     dwLocalAddr: DWORD,
     dwLocalPort: DWORD,
@@ -99,14 +102,17 @@ STRUCT!{struct MIB_UDP6TABLE_OWNER_PID {
 }}
 pub type PMIB_UDP6TABLE_OWNER_PID = *mut MIB_UDP6TABLE_OWNER_PID;
 
+STRUCT!{struct MIB_UDP6ROW_OWNER_MODULE_u_s {
+    bitfield: c_int,
+}}
+BITFIELD!{MIB_UDP6ROW_OWNER_MODULE_u_s bitfield: c_int [
+    SpecificPortBind set_SpecificPortBind[0..1],
+]}
 UNION!{union MIB_UDP6ROW_OWNER_MODULE_u {
     [i32; 1],
     s s_mut: c_int,
     dwFlags dwFlags_mut: c_int,
 }}
-BITFIELD!{MIB_UDP6ROW_OWNER_MODULE_u s: c_int [
-    SpecificPortBind set_SpecificPortBind[0..1],
-]}
 STRUCT!{struct MIB_UDP6ROW_OWNER_MODULE {
     ucLocalAddr: [UCHAR; 16],
     dwLocalScopeId: DWORD,

@@ -278,12 +278,10 @@ mod winsock2 {
         Alignment Alignment_mut: ULONGLONG,
         s s_mut: IP_ADAPTER_ADDRESSES_LH_u1_s,
     }}
-    UNION!{union IP_ADAPTER_ADDRESSES_LH_u2 {
-        [u64; 1],
-        Flags Flags_mut: ULONG,
-        s s_mut: ULONG,
+    STRUCT!{struct IP_ADAPTER_ADDRESSES_LH_u2_s {
+        bitfield: ULONG,
     }}
-    BITFIELD!{IP_ADAPTER_ADDRESSES_LH_u2 s: ULONG [
+    BITFIELD!{IP_ADAPTER_ADDRESSES_LH_u2_s bitfield: ULONG [
         DdnsEnabled set_DdnsEnabled[0..1],
         RegisterAdapterSuffix set_RegisterAdapterSuffix[1..2],
         Dhcpv4Enabled set_Dhcpv4Enabled[2..3],
@@ -295,6 +293,11 @@ mod winsock2 {
         Ipv6Enabled set_Ipv6Enabled[8..9],
         Ipv6ManagedAddressConfigurationSupported set_Ipv6ManagedAddressConfigurationSupported[9..10],
     ]}
+    UNION!{union IP_ADAPTER_ADDRESSES_LH_u2 {
+        [u64; 1],
+        Flags Flags_mut: ULONG,
+        s s_mut: IP_ADAPTER_ADDRESSES_LH_u2_s,
+    }}
     STRUCT!{struct IP_ADAPTER_ADDRESSES_LH {
         u1: IP_ADAPTER_ADDRESSES_LH_u1,
         Next: *mut IP_ADAPTER_ADDRESSES_LH,
