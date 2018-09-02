@@ -8,12 +8,11 @@
 // #include <winapifamily.h>
 // #include <ifmib.h>
 // #include <nldef.h>
-use ctypes::{c_ushort};
-use shared::ifdef::{IF_INDEX};
-use shared::ifmib::{MAXLEN_PHYSADDR};
-use shared::minwindef::{DWORD};
-use shared::nldef::{NL_ROUTE_PROTOCOL};
-use shared::ntdef::{UCHAR, ULONG, PVOID};
+use shared::ifdef::IF_INDEX;
+use shared::ifmib::MAXLEN_PHYSADDR;
+use shared::minwindef::DWORD;
+use shared::nldef::NL_ROUTE_PROTOCOL;
+use shared::ntdef::{PVOID, UCHAR, ULONG, USHORT};
 
 const ANY_SIZE: usize = 1;
 
@@ -23,8 +22,8 @@ STRUCT!{struct MIB_IPADDRROW_XP {
     dwMask: DWORD,
     dwBCastAddr: DWORD,
     dwReasmSize: DWORD,
-    unused1: c_ushort,
-    wType: c_ushort,
+    unused1: USHORT,
+    wType: USHORT,
 }}
 pub type PMIB_IPADDRROW_XP = *mut MIB_IPADDRROW_XP;
 
@@ -34,8 +33,8 @@ STRUCT!{struct MIB_IPADDRROW_W2K {
     dwMask: DWORD,
     dwBCastAddr: DWORD,
     dwReasmSize: DWORD,
-    unused1: c_ushort,
-    unused2: c_ushort,
+    unused1: USHORT,
+    unused2: USHORT,
 }}
 pub type PMIB_IPADDRROW_W2K = *mut MIB_IPADDRROW_W2K;
 

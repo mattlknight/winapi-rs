@@ -9,16 +9,17 @@
 // #include <time.h>
 // #include <ifdef.h>
 // #include <nldef.h>
-
-use ctypes::{__int64};
-use shared::basetsd::{ULONG64, UINT8};
+use shared::basetsd::{UINT8, ULONG64};
 use shared::guiddef::GUID;
-use shared::ifdef::{IF_INDEX, IF_OPER_STATUS, IF_LUID, NET_IF_COMPARTMENT_ID, NET_IF_NETWORK_GUID, NET_IF_CONNECTION_TYPE, TUNNEL_TYPE};
-use shared::ipifcons::{IFTYPE};
-use shared::minwindef::{DWORD, UINT, BYTE, BOOL, UCHAR};
-use shared::nldef::{NL_PREFIX_ORIGIN, NL_SUFFIX_ORIGIN, NL_DAD_STATE};
-use shared::ntdef::{PCHAR, PWCHAR, WCHAR, ULONG, ULONGLONG};
-use shared::ws2def::{SOCKET_ADDRESS};
+use shared::ifdef::{
+    IF_INDEX, IF_LUID, IF_OPER_STATUS, NET_IF_COMPARTMENT_ID, NET_IF_CONNECTION_TYPE,
+    NET_IF_NETWORK_GUID, TUNNEL_TYPE
+};
+use shared::ipifcons::IFTYPE;
+use shared::minwindef::{BOOL, BYTE, DWORD, UCHAR, UINT};
+use shared::nldef::{NL_DAD_STATE, NL_PREFIX_ORIGIN, NL_SUFFIX_ORIGIN};
+use shared::ntdef::{CHAR, LONGLONG, PCHAR, PWCHAR, ULONG, ULONGLONG, WCHAR};
+use shared::ws2def::SOCKET_ADDRESS;
 
 pub const MAX_ADAPTER_DESCRIPTION_LENGTH: usize = 128;
 pub const MAX_ADAPTER_NAME_LENGTH: usize        = 256;
@@ -35,11 +36,11 @@ pub const MIXED_NODETYPE: usize        = 4;
 pub const HYBRID_NODETYPE: usize       = 8;
 
 
-type __time64_t = __int64;
+type __time64_t = LONGLONG;
 type time_t = __time64_t;
 
 STRUCT!{struct IP_ADDRESS_STRING {
-    String: [char; 4*4],
+    String: [CHAR; 4*4],
 }}
 pub type PIP_ADDRESS_STRING = *mut IP_ADDRESS_STRING;
 
@@ -57,8 +58,8 @@ pub type PIP_ADDR_STRING = *mut IP_ADDR_STRING;
 STRUCT!{struct IP_ADAPTER_INFO {
     Next: *mut IP_ADAPTER_INFO,
     ComboIndex: DWORD,
-    AdapterName: [char; MAX_ADAPTER_NAME_LENGTH + 4],
-    Description: [char; MAX_ADAPTER_DESCRIPTION_LENGTH + 4],
+    AdapterName: [CHAR; MAX_ADAPTER_NAME_LENGTH + 4],
+    Description: [CHAR; MAX_ADAPTER_DESCRIPTION_LENGTH + 4],
     AddressLength: UINT,
     Address: [BYTE; MAX_ADAPTER_ADDRESS_LENGTH],
     Index: DWORD,
@@ -402,12 +403,12 @@ pub type IP_PER_ADAPTER_INFO = IP_PER_ADAPTER_INFO_W2KSP1;
 pub type PIP_PER_ADAPTER_INFO = *mut IP_PER_ADAPTER_INFO;
 
 STRUCT!{struct FIXED_INFO_W2KSP1 {
-    HostName: [char; MAX_HOSTNAME_LEN + 4],
-    DomainName: [char; MAX_DOMAIN_NAME_LEN + 4],
+    HostName: [CHAR; MAX_HOSTNAME_LEN + 4],
+    DomainName: [CHAR; MAX_DOMAIN_NAME_LEN + 4],
     CurrentDnsServer: PIP_ADDR_STRING,
     DnsServerList: IP_ADDR_STRING,
     NodeType: UINT,
-    ScopeId: [char; MAX_SCOPE_ID_LEN + 4],
+    ScopeId: [CHAR; MAX_SCOPE_ID_LEN + 4],
     EnableRouting: UINT,
     EnableProxy: UINT,
     EnableDns: UINT,

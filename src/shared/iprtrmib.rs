@@ -12,9 +12,9 @@
 // #include <ipmib.h>
 // #include <tcpmib.h>
 // #include <udpmib.h>
-use shared::ipmib::{MIB_IPFORWARDROW};
+use shared::ipmib::MIB_IPFORWARDROW;
 use shared::minwindef::{BOOL, BYTE, DWORD};
-use shared::ntdef::{PWCHAR, WCHAR, ULONGLONG};
+use shared::ntdef::{PWCHAR, ULONGLONG, WCHAR};
 
 pub const MAX_SCOPE_NAME_LEN: usize = 255;
 pub const MAX_MIB_OFFSET: usize = 8;

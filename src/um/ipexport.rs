@@ -8,11 +8,9 @@
 // #include <winapifamily.h>
 // #include <in6addr.h>
 // #include <inaddr.h>
-
-use ctypes::{c_uint};
-use shared::basetsd::{ULONG64};
-use shared::in6addr::{in6_addr};
-use shared::ntdef::{UCHAR, USHORT, ULONG, WCHAR};
+use shared::basetsd::ULONG64;
+use shared::in6addr::in6_addr;
+use shared::ntdef::{INT, UCHAR, ULONG, USHORT, WCHAR};
 
 pub const MAX_ADAPTER_NAME: usize = 128;
 pub const MAX_OPT_SIZE: usize = 40;
@@ -83,7 +81,7 @@ pub type PIPV6_ADDRESS_EX = *mut IPV6_ADDRESS_EX;
 STRUCT!{struct ICMPV6_ECHO_REPLY_LH {
     Address: IPV6_ADDRESS_EX,
     Status: ULONG,
-    RoundTripTime: c_uint,
+    RoundTripTime: INT,
 }}
 pub type PICMPV6_ECHO_REPLY_LH = *mut ICMPV6_ECHO_REPLY_LH;
 

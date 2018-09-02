@@ -10,11 +10,11 @@
 // use shared::guiddef::GUID;
 // use shared::ws2def::*;
 // use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
-use ctypes::{c_int};
-use shared::basetsd::{DWORD64};
-use shared::in6addr::{IN6_ADDR};
-use shared::minwindef::{DWORD};
-use shared::ntdef::{UCHAR, ULONGLONG, LARGE_INTEGER};
+// use ctypes::{INT};
+use shared::basetsd::DWORD64;
+use shared::in6addr::IN6_ADDR;
+use shared::minwindef::DWORD;
+use shared::ntdef::{INT, LARGE_INTEGER, UCHAR, ULONGLONG};
 
 pub const TCPIP_OWNING_MODULE_SIZE: usize = 16;
 
@@ -47,15 +47,15 @@ STRUCT!{struct MIB_UDPTABLE_OWNER_PID {
 pub type PMIB_UDPTABLE_OWNER_PID = *mut MIB_UDPTABLE_OWNER_PID;
 
 STRUCT!{struct MIB_UDPROW_OWNER_MODULE_u_s {
-    bitfield: c_int,
+    bitfield: INT,
 }}
-BITFIELD!{MIB_UDPROW_OWNER_MODULE_u_s bitfield: c_int [
+BITFIELD!{MIB_UDPROW_OWNER_MODULE_u_s bitfield: INT [
     SpecificPortBind set_SpecificPortBind[0..1],
 ]}
 UNION!{union MIB_UDPROW_OWNER_MODULE_u {
     [i32; 1],
     s s_mut: MIB_UDPROW_OWNER_MODULE_u_s,
-    dwFlags dwFlags_mut: c_int,
+    dwFlags dwFlags_mut: INT,
 }}
 
 STRUCT!{struct MIB_UDPROW_OWNER_MODULE {
@@ -103,15 +103,15 @@ STRUCT!{struct MIB_UDP6TABLE_OWNER_PID {
 pub type PMIB_UDP6TABLE_OWNER_PID = *mut MIB_UDP6TABLE_OWNER_PID;
 
 STRUCT!{struct MIB_UDP6ROW_OWNER_MODULE_u_s {
-    bitfield: c_int,
+    bitfield: INT,
 }}
-BITFIELD!{MIB_UDP6ROW_OWNER_MODULE_u_s bitfield: c_int [
+BITFIELD!{MIB_UDP6ROW_OWNER_MODULE_u_s bitfield: INT [
     SpecificPortBind set_SpecificPortBind[0..1],
 ]}
 UNION!{union MIB_UDP6ROW_OWNER_MODULE_u {
     [i32; 1],
-    s s_mut: c_int,
-    dwFlags dwFlags_mut: c_int,
+    s s_mut: INT,
+    dwFlags dwFlags_mut: INT,
 }}
 STRUCT!{struct MIB_UDP6ROW_OWNER_MODULE {
     ucLocalAddr: [UCHAR; 16],

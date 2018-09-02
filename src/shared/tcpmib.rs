@@ -6,10 +6,10 @@
 // except according to those terms.
 
 // #include <winapifamily.h>
-use shared::basetsd::{DWORD64};
-use shared::in6addr::{IN6_ADDR};
-use shared::minwindef::{DWORD};
-use shared::ntdef::{UCHAR, LARGE_INTEGER, ULONGLONG};
+use shared::basetsd::DWORD64;
+use shared::in6addr::IN6_ADDR;
+use shared::minwindef::DWORD;
+use shared::ntdef::{LARGE_INTEGER, UCHAR, ULONGLONG};
 
 pub const TCPIP_OWNING_MODULE_SIZE: usize = 16;
 

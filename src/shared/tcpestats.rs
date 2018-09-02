@@ -7,7 +7,7 @@
 
 // #include <winapifamily.h>
 use shared::basetsd::{SIZE_T, ULONG64};
-use shared::ntdef::{ULONG, BOOLEAN, UCHAR};
+use shared::ntdef::{BOOLEAN, UCHAR, ULONG};
 
 ENUM!{enum TCP_ESTATS_TYPE {
     TcpConnectionEstatsSynOpts,
