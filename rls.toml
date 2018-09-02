@@ -1,2 +1,2 @@
 # rls.toml
-features = ["iphlpapi", "ws2def", "ws2ipdef", "minwinbase", "winsock2"]
+features = ["everything"]

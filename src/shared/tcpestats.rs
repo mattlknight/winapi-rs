@@ -25,8 +25,8 @@ pub type PTCP_ESTATS_TYPE = *mut TCP_ESTATS_TYPE;
 
 ENUM!{enum TCP_BOOLEAN_OPTIONAL {
     TcpBoolOptDisabled = 0,
-    TcpBoolOptEnabled = 1,
-    TcpBoolOptUnchanged = -1,
+    TcpBoolOptEnabled,
+    TcpBoolOptUnchanged = -1i32 as u32,
 }}
 pub type PTCP_BOOLEAN_OPTIONAL = *mut TCP_BOOLEAN_OPTIONAL;
 
