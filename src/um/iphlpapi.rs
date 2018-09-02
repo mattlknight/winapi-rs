@@ -42,33 +42,24 @@ ENUM!{enum NET_ADDRESS_FORMAT {
     NET_ADDRESS_IPV6,
 }}
 
-// #if defined (_WS2DEF_) && defined (_WS2IPDEF_) && defined(_WINDNS_INCLUDED_)
-#[cfg(all(feature = "ws2def", feature = "ws2ipdef"))]
-mod ws2def_and_ws2ipdef {
-    use super::*;
+pub const DNS_MAX_NAME_BUFFER_LENGTH: usize = 0x256;
 
-    pub const DNS_MAX_NAME_BUFFER_LENGTH: usize = 0x256;
-
-    STRUCT!{struct NET_NAMED_ADDRESS {
-        Address: [WCHAR; DNS_MAX_NAME_BUFFER_LENGTH],
-        Port: [WCHAR; 6],
-    }}
-    UNION!{union NET_ADDRESS {
-        [u8; 256],
-        NamedAddress NamedAddress_mut: NET_NAMED_ADDRESS, // [u16; 6] + [u16; ]
-        Ipv4Address Ipv4Address_mut: SOCKADDR_IN, // [u8; 4]
-        Ipv6Address Ipv6Address_mut: SOCKADDR_IN6, // [u8; 16]
-        IpAddress IpAddress_mut: SOCKADDR, // [u8; 16]
-    }}
-    STRUCT!{struct NET_ADDRESS_INFO {
-        Format: NET_ADDRESS_FORMAT,
-        Address: NET_ADDRESS,
-    }}
-    pub type PNET_ADDRESS_INFO = *mut NET_ADDRESS_INFO;
-}
-#[cfg(all(feature = "ws2def", feature = "ws2ipdef"))]
-pub use self::ws2def_and_ws2ipdef::*;
-
+STRUCT!{struct NET_NAMED_ADDRESS {
+    Address: [WCHAR; DNS_MAX_NAME_BUFFER_LENGTH],
+    Port: [WCHAR; 6],
+}}
+UNION!{union NET_ADDRESS {
+    [u8; 256],
+    NamedAddress NamedAddress_mut: NET_NAMED_ADDRESS, // [u16; 6] + [u16; ]
+    Ipv4Address Ipv4Address_mut: SOCKADDR_IN, // [u8; 4]
+    Ipv6Address Ipv6Address_mut: SOCKADDR_IN6, // [u8; 16]
+    IpAddress IpAddress_mut: SOCKADDR, // [u8; 16]
+}}
+STRUCT!{struct NET_ADDRESS_INFO {
+    Format: NET_ADDRESS_FORMAT,
+    Address: NET_ADDRESS,
+}}
+pub type PNET_ADDRESS_INFO = *mut NET_ADDRESS_INFO;
 
 extern "system" {
     pub fn GetNumberOfInterfaces(
