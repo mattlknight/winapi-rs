@@ -5,19 +5,11 @@
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
 
-// #include <winapifamily.h>
+// #include <winapifamily.h> - FIXME: Unsure if needed, mattlknight
 // #include <ipifcons.h>
-use ctypes::*;
-use shared::minwindef::*;
-use shared::basetsd::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
+use shared::basetsd::{UINT16, UINT32, ULONG32, ULONG64};
 use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-use shared::ipifcons::*;
-
+use shared::ntdef::{BOOLEAN, ULONG, USHORT};
 
 pub type NET_IF_COMPARTMENT_ID = UINT32;
 pub type PNET_IF_COMPARTMENT_ID = *mut NET_IF_COMPARTMENT_ID;
@@ -75,15 +67,19 @@ STRUCT!{struct NET_IF_ALIAS_LH {
 }}
 pub type PNET_IF_ALIAS_LH = *mut NET_IF_ALIAS_LH;
 
-UNION!{union NET_LUID_LH {
-    Value: ULONG64,
-    Info: ULONG64,
+STRUCT!{struct NET_LUID_LH_Info {
+    bitfield: ULONG64,
 }}
-BITFIELD!{NET_LUID_LH Info: ULONG64 [
+BITFIELD!{NET_LUID_LH_Info bitfield: ULONG64 [
     Reserved set_Reserved[0..24],
     NetLuidIndex set_NetLuidIndex[24..48],
     IfType set_IfType[48..64],
 ]}
+UNION!{union NET_LUID_LH {
+    [u64; 1],
+    Value Value_mut: ULONG64,
+    Info Info_mut: NET_LUID_LH_Info,
+}}
 pub type PNET_LUID_LH = *mut NET_LUID_LH;
 
 pub type NET_IF_RCV_ADDRESS = NET_IF_RCV_ADDRESS_LH;

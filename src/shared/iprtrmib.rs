@@ -5,28 +5,15 @@
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
 
-// #include <winapifamily.h>
-// #include <mprapidef.h>
+// #include <winapifamily.h> - FIXME: Unsure if needed, mattlknight
+// #include <mprapidef.h> - FIXME: Unsure if needed, mattlknight
 // #include <ipifcons.h>
-
 // #include <ipmib.h>
 // #include <tcpmib.h>
 // #include <udpmib.h>
-use ctypes::*;
-use shared::minwindef::*;
-use shared::basetsd::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-
-use shared::mprapidef::*;
-use shared::ipifcons::*;
-use shared::ipmib::*;
-use shared::tcpmib::*;
-use shared::udpmib::*;
+use shared::ipmib::MIB_IPFORWARDROW;
+use shared::minwindef::{BOOL, BYTE, DWORD};
+use shared::ntdef::{PWCHAR, ULONGLONG, WCHAR};
 
 pub const MAX_SCOPE_NAME_LEN: usize = 255;
 pub const MAX_MIB_OFFSET: usize = 8;
@@ -62,7 +49,7 @@ pub type PUDP_TABLE_CLASS = *mut UDP_TABLE_CLASS;
 ENUM!{enum TCPIP_OWNER_MODULE_INFO_CLASS {
     TCPIP_OWNER_MODULE_INFO_BASIC,
 }}
-pub type PTCPIP_OWNER_MODULE_INFO_CLASS = *mut TCPIP_OWNER_MODULE_INFO_BASIC;
+pub type PTCPIP_OWNER_MODULE_INFO_CLASS = *mut TCPIP_OWNER_MODULE_INFO_CLASS;
 
 STRUCT!{struct TCPIP_OWNER_MODULE_BASIC_INFO {
     pModuleName: PWCHAR,
@@ -149,12 +136,12 @@ STRUCT!{struct MIB_ROUTESTATE {
 pub type PMIB_ROUTESTATE = *mut MIB_ROUTESTATE;
 
 UNION!{union MIB_OPAQUE_INFO_Value {
-    ullAlign: ULONGLONG,
-    rgbyData: [BYTE; 1],
+    [u64; 1],
+    ullAlign ullAlign_mut: ULONGLONG,
+    rgbyData rgbyData_mut: [BYTE; 1],
 }}
 STRUCT!{struct MIB_OPAQUE_INFO {
     dwId: DWORD,
     Value: MIB_OPAQUE_INFO_Value,
 }}
 pub type PMIB_OPAQUE_INFO = *mut MIB_OPAQUE_INFO;
-

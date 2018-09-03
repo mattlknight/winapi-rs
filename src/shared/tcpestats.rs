@@ -5,17 +5,9 @@
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
 
-// #include <winapifamily.h>
-use ctypes::*;
-use shared::minwindef::*;
-use shared::basetsd::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-
+// #include <winapifamily.h> - FIXME: Unsure if needed, mattlknight
+use shared::basetsd::{SIZE_T, ULONG64};
+use shared::ntdef::{BOOLEAN, UCHAR, ULONG};
 
 ENUM!{enum TCP_ESTATS_TYPE {
     TcpConnectionEstatsSynOpts,
@@ -33,8 +25,8 @@ pub type PTCP_ESTATS_TYPE = *mut TCP_ESTATS_TYPE;
 
 ENUM!{enum TCP_BOOLEAN_OPTIONAL {
     TcpBoolOptDisabled = 0,
-    TcpBoolOptEnabled = 1,
-    TcpBoolOptUnchanged = -1,
+    TcpBoolOptEnabled,
+    TcpBoolOptUnchanged = -1i32 as u32,
 }}
 pub type PTCP_BOOLEAN_OPTIONAL = *mut TCP_BOOLEAN_OPTIONAL;
 
@@ -240,4 +232,3 @@ STRUCT!{struct TCP_ESTATS_FINE_RTT_ROD_v0 {
     SumRtt: ULONG,
 }}
 pub type PTCP_ESTATS_FINE_RTT_ROD_v0 = *mut TCP_ESTATS_FINE_RTT_ROD_v0;
-

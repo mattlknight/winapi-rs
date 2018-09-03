@@ -5,22 +5,14 @@
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
 
-// #include <winapifamily.h>
+// #include <winapifamily.h> - FIXME: Unsure if needed, mattlknight
 // #include <in6addr.h>
-// #include <inaddr.h>
-
-use ctypes::*;
-use shared::minwindef::*;
-use shared::basetsd::*;
-use shared::inaddr::*;
-use shared::in6addr::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-
+// #include <inaddr.h> - FIXME: Unsure if needed, mattlknight
+// #include <packon.h> - Not required, using for windows struct alignment
+// #include <packoff.h> - Not required, using for windows struct alignment
+use shared::basetsd::ULONG64;
+use shared::in6addr::in6_addr;
+use shared::ntdef::{INT, UCHAR, ULONG, USHORT, WCHAR};
 
 pub const MAX_ADAPTER_NAME: usize = 128;
 pub const MAX_OPT_SIZE: usize = 40;
@@ -91,7 +83,7 @@ pub type PIPV6_ADDRESS_EX = *mut IPV6_ADDRESS_EX;
 STRUCT!{struct ICMPV6_ECHO_REPLY_LH {
     Address: IPV6_ADDRESS_EX,
     Status: ULONG,
-    RoundTripTime: c_uint,
+    RoundTripTime: INT,
 }}
 pub type PICMPV6_ECHO_REPLY_LH = *mut ICMPV6_ECHO_REPLY_LH;
 
@@ -118,7 +110,7 @@ STRUCT!{struct IP_ADAPTER_INDEX_MAP {
 pub type PIP_ADAPTER_INDEX_MAP = *mut IP_ADAPTER_INDEX_MAP;
 
 STRUCT!{struct IP_INTERFACE_INFO {
-    NumAdapters: LOGNG,
+    NumAdapters: ULONG,
     Adapter: [IP_ADAPTER_INDEX_MAP; 1],
 }}
 pub type PIP_INTERFACE_INFO = *mut IP_INTERFACE_INFO;

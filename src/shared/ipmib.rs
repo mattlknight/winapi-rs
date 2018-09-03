@@ -5,22 +5,14 @@
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
 
-// #include <winapifamily.h>
+// #include <winapifamily.h> - FIXME: Unsure if needed, mattlknight
 // #include <ifmib.h>
 // #include <nldef.h>
-use ctypes::*;
-use shared::minwindef::*;
-use shared::basetsd::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
-};
-use shared::ifmib::*;
-use shared::ifdef::*;
-use shared::ipifcons::*;
-use shared::nldef::*;
+use shared::ifdef::IF_INDEX;
+use shared::ifmib::MAXLEN_PHYSADDR;
+use shared::minwindef::DWORD;
+use shared::nldef::NL_ROUTE_PROTOCOL;
+use shared::ntdef::{PVOID, UCHAR, ULONG, USHORT};
 
 const ANY_SIZE: usize = 1;
 
@@ -30,8 +22,8 @@ STRUCT!{struct MIB_IPADDRROW_XP {
     dwMask: DWORD,
     dwBCastAddr: DWORD,
     dwReasmSize: DWORD,
-    unused1: c_ushort,
-    wType: c_ushort,
+    unused1: USHORT,
+    wType: USHORT,
 }}
 pub type PMIB_IPADDRROW_XP = *mut MIB_IPADDRROW_XP;
 
@@ -41,8 +33,8 @@ STRUCT!{struct MIB_IPADDRROW_W2K {
     dwMask: DWORD,
     dwBCastAddr: DWORD,
     dwReasmSize: DWORD,
-    unused1: c_ushort,
-    unused2: c_ushort,
+    unused1: USHORT,
+    unused2: USHORT,
 }}
 pub type PMIB_IPADDRROW_W2K = *mut MIB_IPADDRROW_W2K;
 
@@ -437,4 +429,3 @@ STRUCT!{struct MIB_IPMCAST_IF_TABLE {
     table: [MIB_IPMCAST_IF_ENTRY; ANY_SIZE],
 }}
 pub type PMIB_IPMCAST_IF_TABLE = *mut MIB_IPMCAST_IF_TABLE;
-

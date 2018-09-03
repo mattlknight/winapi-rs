@@ -5,26 +5,38 @@
 // All files in the project carrying such notice may not be copied, modified, or distributed
 // except according to those terms.
 
+// #include <winapifamily.h> - FIXME: Unsure if needed, mattlknight
 // #include <iprtrmib.h>
 // #include <ipexport.h>
 // #include <iptypes.h>
 // #include <tcpestats.h>
-
-use ctypes::*;
-use shared::minwindef::*;
-use shared::basetsd::*;
-use shared::inaddr::*;
-use shared::in6addr::*;
-use shared::ntdef::*;
-use shared::ws2def::*;
-use shared::guiddef::GUID;
-use um::minwinbase::{
-    OVERLAPPED, LPOVERLAPPED, 
+// #include <netioapi.h> - FIXME: Unsure if needed, mattlknight
+use shared::basetsd::PULONG64;
+use shared::ifmib::{PMIB_IFROW, PMIB_IFTABLE};
+use shared::ipmib::{
+    PMIB_ICMP, PMIB_ICMP_EX, PMIB_IPADDRTABLE, PMIB_IPFORWARDROW, PMIB_IPFORWARDTABLE,
+    PMIB_IPNETROW, PMIB_IPNETTABLE, PMIB_IPSTATS
 };
-use shared::iprtrmib::*;
-use shared::ipexport::*;
-use shared::iptypes::*;
-use shared::tcpestats::*;
+use shared::iprtrmib::{TCPIP_OWNER_MODULE_INFO_CLASS, TCP_TABLE_CLASS, UDP_TABLE_CLASS};
+use shared::minwindef::{BOOL, BYTE, DWORD, LPDWORD, PDWORD, PULONG, UINT};
+use shared::ntdef::{HANDLE, LPWSTR, PHANDLE, PVOID, PWSTR, ULONG, USHORT, WCHAR};
+use shared::tcpmib::{
+    PMIB_TCP6ROW_OWNER_MODULE, PMIB_TCP6TABLE, PMIB_TCP6TABLE2, PMIB_TCPROW,
+    PMIB_TCPROW_OWNER_MODULE, PMIB_TCPSTATS, PMIB_TCPSTATS2, PMIB_TCPTABLE, PMIB_TCPTABLE2
+};
+use shared::udpmib::{
+    PMIB_UDP6ROW_OWNER_MODULE, PMIB_UDP6TABLE, PMIB_UDPROW_OWNER_MODULE, PMIB_UDPSTATS,
+    PMIB_UDPSTATS2, PMIB_UDPTABLE
+};
+use shared::ws2def::{PSOCKADDR, SOCKADDR, SOCKADDR_IN};
+use shared::ws2ipdef::SOCKADDR_IN6;
+use um::ipexport::{
+    IPAddr, IPMask, IP_STATUS, PIP_ADAPTER_INDEX_MAP, PIP_INTERFACE_INFO,
+    PIP_UNIDIRECTIONAL_ADAPTER_ADDRESS
+};
+use um::iptypes::{PFIXED_INFO, PIP_ADAPTER_ADDRESSES, PIP_ADAPTER_INFO, PIP_PER_ADAPTER_INFO};
+use um::minwinbase::{LPOVERLAPPED,OVERLAPPED};
+
 ENUM!{enum NET_ADDRESS_FORMAT {
     NET_ADDRESS_FORMAT_UNSPECIFIED = 0,
     NET_ADDRESS_DNS_NAME,
@@ -32,30 +44,24 @@ ENUM!{enum NET_ADDRESS_FORMAT {
     NET_ADDRESS_IPV6,
 }}
 
-// #if defined (_WS2DEF_) && defined (_WS2IPDEF_) && defined(_WINDNS_INCLUDED_)
-#[cfg(all(feature = "ws2def", feature = "ws2ipdef"))]
-mod ws2def_and_ws2ipdef {
-    use super::*;
+pub const DNS_MAX_NAME_BUFFER_LENGTH: usize = 256;
 
-    STRUCT!{struct NET_NAMED_ADDRESS {
-        Address: [WCHAR; DNS_MAX_NAME_BUFFER_LENGTH],
-        Port: [WCHAR; 6],
-    }}
-    UNION!{union NET_ADDRESS {
-        NamedAddress: NET_NAMED_ADDRESS,
-        Ipv4Address: SOCKADDR_IN,
-        Ipv6Address: SOCKADDR_IN6,
-        IpAddress: SOCKADDR,
-    }}
-    STRUCT!{struct NET_ADDRESS_INFO {
-        Format: NET_ADDRESS_FORMAT,
-        Address: NET_ADDRESS,
-    }}
-    pub type PNET_ADDRESS_INFO = *mut NET_ADDRESS_INFO;
-}
-#[cfg(all(feature = "ws2def", feature = "ws2ipdef"))]
-pub use ws2def_and_ws2ipdef::*;
-
+STRUCT!{struct NET_NAMED_ADDRESS {
+    Address: [WCHAR; DNS_MAX_NAME_BUFFER_LENGTH],
+    Port: [WCHAR; 6],
+}}
+UNION!{union NET_ADDRESS {
+    [u8; 256],
+    NamedAddress NamedAddress_mut: NET_NAMED_ADDRESS, // [u16; 6] + [u16; ]
+    Ipv4Address Ipv4Address_mut: SOCKADDR_IN, // [u8; 4]
+    Ipv6Address Ipv6Address_mut: SOCKADDR_IN6, // [u8; 16]
+    IpAddress IpAddress_mut: SOCKADDR, // [u8; 16]
+}}
+STRUCT!{struct NET_ADDRESS_INFO {
+    Format: NET_ADDRESS_FORMAT,
+    Address: NET_ADDRESS,
+}}
+pub type PNET_ADDRESS_INFO = *mut NET_ADDRESS_INFO;
 
 extern "system" {
     pub fn GetNumberOfInterfaces(
@@ -258,7 +264,7 @@ extern "system" {
         pdwBestIfIndex: PDWORD,
     ) -> DWORD;
     pub fn GetBestInterfaceEx(
-        pDestAddr: *mut sockaddr,
+        pDestAddr: PSOCKADDR,
         pdwBestIfIndex: PDWORD,
     ) -> DWORD;
     pub fn GetBestRoute(
